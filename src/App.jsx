@@ -28,22 +28,20 @@ function App() {
     fetchPokemon();
   }, [pokemon1]);
 
-  // fetch pokemon 2
+  // fetch pokemon 2 using IIFE
   useEffect(() => {
-    const fetchPokemon = async () => {
-      if (!pokemon2) return;
-
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon2}`);
-
-      if (res.ok) {
+    (async () => {
+      try {
+        if (!pokemon2) return;
+        const res = await fetch(
+          `https://pokeapi.co/api/v2/pokemon/${pokemon2}`,
+        );
         const data = await res.json();
         setPoke2Data(data);
-      } else {
+      } catch (err) {
         setPoke2Data(null);
       }
-    };
-
-    fetchPokemon();
+    })();
   }, [pokemon2]);
 
   return (

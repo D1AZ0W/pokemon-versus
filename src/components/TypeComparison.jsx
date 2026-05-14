@@ -32,15 +32,14 @@ export function TypeComparison({ p1, p2 }) {
   const allTypes = [...new Set([...types1, ...types2])];
 
   useEffect(() => {
-    const fetchTypes = async () => {
+    (async () => {
       const data = {};
       for (const type of allTypes) {
         const res = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
         data[type] = await res.json();
       }
       setTypeData(data);
-    };
-    fetchTypes();
+    })();
   }, [allTypes.join(",")]);
 
   const getMultiplier = (attackTypeData, defenderTypes) => {
